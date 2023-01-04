@@ -1,0 +1,93 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesseract", "Tesseract\Tesseract.csproj", "{5BC1C384-BA40-46DD-877B-5B008FF55CA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesseract.Drawing", "Tesseract.Drawing\Tesseract.Drawing.csproj", "{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCVSampleForm", "OpenCVSampleForm\OpenCVSampleForm.csproj", "{986896A1-E04B-41CC-A4B9-5B32AEEAE927}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tigeracter", "Tigeracter\Tigeracter.csproj", "{A37162EB-02D9-4872-83AA-B4031BE8011A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TigerSplash", "TigerSplash\TigerSplash.csproj", "{ACC8EA7B-29CA-49B9-94E3-F4C07421DA96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{210B64AB-8F67-4A8A-9930-2511C6B51204}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TigerWord.GoOCR", "TigerWord.GoOCR\TigerWord.GoOCR.csproj", "{C736209A-8AE3-4CA7-A38B-16B7FE41C079}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8405A360-2102-4C8C-8D25-523795F23E4F} = {8405A360-2102-4C8C-8D25-523795F23E4F}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TigerWord.GoPDF", "TigerWord.GoPDF\TigerWord.GoPDF.csproj", "{2A738C5C-2747-4152-9FC9-0EC1588C53F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TigerWord.GoDTP", "TigerWord.GoDTP\TigerWord.GoDTP.csproj", "{17474973-1803-4F5C-86F6-D3C6ACC98DCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TigerWord", "TigerWord\TigerWord.csproj", "{C18FF705-503E-4095-99FB-9647862D03B7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8405A360-2102-4C8C-8D25-523795F23E4F} = {8405A360-2102-4C8C-8D25-523795F23E4F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TigerWord.Core", "TigerWord.Core\TigerWord.Core.csproj", "{8405A360-2102-4C8C-8D25-523795F23E4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BC1C384-BA40-46DD-877B-5B008FF55CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BC1C384-BA40-46DD-877B-5B008FF55CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BC1C384-BA40-46DD-877B-5B008FF55CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BC1C384-BA40-46DD-877B-5B008FF55CA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{986896A1-E04B-41CC-A4B9-5B32AEEAE927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{986896A1-E04B-41CC-A4B9-5B32AEEAE927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{986896A1-E04B-41CC-A4B9-5B32AEEAE927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{986896A1-E04B-41CC-A4B9-5B32AEEAE927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A37162EB-02D9-4872-83AA-B4031BE8011A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A37162EB-02D9-4872-83AA-B4031BE8011A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A37162EB-02D9-4872-83AA-B4031BE8011A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A37162EB-02D9-4872-83AA-B4031BE8011A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC8EA7B-29CA-49B9-94E3-F4C07421DA96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC8EA7B-29CA-49B9-94E3-F4C07421DA96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC8EA7B-29CA-49B9-94E3-F4C07421DA96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC8EA7B-29CA-49B9-94E3-F4C07421DA96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C736209A-8AE3-4CA7-A38B-16B7FE41C079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C736209A-8AE3-4CA7-A38B-16B7FE41C079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C736209A-8AE3-4CA7-A38B-16B7FE41C079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C736209A-8AE3-4CA7-A38B-16B7FE41C079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A738C5C-2747-4152-9FC9-0EC1588C53F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A738C5C-2747-4152-9FC9-0EC1588C53F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A738C5C-2747-4152-9FC9-0EC1588C53F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A738C5C-2747-4152-9FC9-0EC1588C53F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17474973-1803-4F5C-86F6-D3C6ACC98DCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17474973-1803-4F5C-86F6-D3C6ACC98DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17474973-1803-4F5C-86F6-D3C6ACC98DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17474973-1803-4F5C-86F6-D3C6ACC98DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C18FF705-503E-4095-99FB-9647862D03B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18FF705-503E-4095-99FB-9647862D03B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C18FF705-503E-4095-99FB-9647862D03B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C18FF705-503E-4095-99FB-9647862D03B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8405A360-2102-4C8C-8D25-523795F23E4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8405A360-2102-4C8C-8D25-523795F23E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8405A360-2102-4C8C-8D25-523795F23E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8405A360-2102-4C8C-8D25-523795F23E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C736209A-8AE3-4CA7-A38B-16B7FE41C079} = {210B64AB-8F67-4A8A-9930-2511C6B51204}
+		{2A738C5C-2747-4152-9FC9-0EC1588C53F3} = {210B64AB-8F67-4A8A-9930-2511C6B51204}
+		{17474973-1803-4F5C-86F6-D3C6ACC98DCA} = {210B64AB-8F67-4A8A-9930-2511C6B51204}
+		{8405A360-2102-4C8C-8D25-523795F23E4F} = {210B64AB-8F67-4A8A-9930-2511C6B51204}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED106A16-479A-4BF0-B19D-039F94B9BE9F}
+	EndGlobalSection
+EndGlobal
