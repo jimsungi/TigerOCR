@@ -23,7 +23,7 @@ using Prism.Events;
 using System.Windows.Input;
 using System.Xml.Linq;
 using Unity;
-using Wpf.Ui.Mvvm.Services;
+//using Wpf.Ui.Mvvm.Services;
 
 namespace TigerWord.ViewModels
 {
