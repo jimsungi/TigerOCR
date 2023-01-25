@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesseract", "Tesseract\Tesseract.csproj", "{5BC1C384-BA40-46DD-877B-5B008FF55CA4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesseract.Drawing", "Tesseract.Drawing\Tesseract.Drawing.csproj", "{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCVSampleForm", "OpenCVSampleForm\OpenCVSampleForm.csproj", "{986896A1-E04B-41CC-A4B9-5B32AEEAE927}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tigeracter", "Tigeracter\Tigeracter.csproj", "{A37162EB-02D9-4872-83AA-B4031BE8011A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TigerSplash", "TigerSplash\TigerSplash.csproj", "{ACC8EA7B-29CA-49B9-94E3-F4C07421DA96}"
@@ -29,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TigerWord", "TigerWord\Tige
 		{8405A360-2102-4C8C-8D25-523795F23E4F} = {8405A360-2102-4C8C-8D25-523795F23E4F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TigerWord.Core", "TigerWord.Core\TigerWord.Core.csproj", "{8405A360-2102-4C8C-8D25-523795F23E4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TigerWord.Core", "TigerWord.Core\TigerWord.Core.csproj", "{8405A360-2102-4C8C-8D25-523795F23E4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,18 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5BC1C384-BA40-46DD-877B-5B008FF55CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BC1C384-BA40-46DD-877B-5B008FF55CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BC1C384-BA40-46DD-877B-5B008FF55CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BC1C384-BA40-46DD-877B-5B008FF55CA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD18AA03-C133-45DF-B87D-8E3AF03C77C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{986896A1-E04B-41CC-A4B9-5B32AEEAE927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{986896A1-E04B-41CC-A4B9-5B32AEEAE927}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{986896A1-E04B-41CC-A4B9-5B32AEEAE927}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{986896A1-E04B-41CC-A4B9-5B32AEEAE927}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A37162EB-02D9-4872-83AA-B4031BE8011A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A37162EB-02D9-4872-83AA-B4031BE8011A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A37162EB-02D9-4872-83AA-B4031BE8011A}.Release|Any CPU.ActiveCfg = Release|Any CPU

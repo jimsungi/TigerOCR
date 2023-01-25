@@ -2,7 +2,11 @@
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Services.Dialogs;
+using System;
 using TigerWord.Core.Services;
+using MahApps.Metro.IconPacks;
+using System.Collections.ObjectModel;
+using TigerWord.Core.Biz;
 
 namespace TigerWord.Core
 {
@@ -18,5 +22,11 @@ namespace TigerWord.Core
         {
             
         }
+    }
+
+    public interface TigerLoader
+    {
+        public Type GetModuleType();
+        public Tuple<Type, string, string, MahApps.Metro.IconPacks.PackIconBase, ObservableCollection<CoreMenuData>, object, object>  GetModuleInfo();
     }
 }

@@ -11,11 +11,8 @@
     <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
     <PackageReference Include="OpenCvSharp4.Extensions" Version="4.6.0.20220608" />
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.6.0.20220608" />
+    <PackageReference Include="Tesseract" Version="5.2.0" />
+    <PackageReference Include="Tesseract.Drawing" Version="5.2.0" />
   </ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Tesseract.Drawing\Tesseract.Drawing.csproj" />
-	  <ProjectReference Include="..\Tesseract\Tesseract.csproj" />
-	</ItemGroup>
 
 </Project>

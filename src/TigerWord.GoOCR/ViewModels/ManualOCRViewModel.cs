@@ -1,35 +1,86 @@
-﻿using Prism.Mvvm;
-using System.Collections.Generic;
-using Unity;
-using Prism.Commands;
-using Microsoft.Win32;
-using TigerWord.Core.Services;
+﻿using System;
 using System.IO;
-using System.Windows.Media.Imaging;
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Drawing;
+using System.Collections.Generic;
+using System.Windows.Media.Imaging;
+using System.Diagnostics;
+
+using Microsoft.Win32;
+
+using Unity;
+
+using Prism.Commands;
+using Prism.Events;
+using Prism.Mvvm;
+
+using Tesseract;
+
 using OpenCvSharp.Extensions;
 using OpenCvSharp;
-using com.tigerword.ocr;
-using System.Diagnostics;
-using Tesseract;
 using Point = OpenCvSharp.Point;
+
+
+using TigerWord.Core.Services;
+using com.tigerword.ocr;
 using Ocr = com.tigerword.tigeracter.OcrService;
+using TigerWord.Core.ViewModels;
+using TigerWord.Core.Biz;
+using System.Windows.Controls;
+using System.Reflection;
 
 #pragma warning disable CS8604 // 가능한 null 참조 인수입니다.
 namespace TigerWord.GoOCR.ViewModels
 {
     public class ManualOCRViewModel : BindableBase
     {
-        public ManualOCRViewModel(IUserSettingService _UserSettingService)
+        public ManualOCRViewModel(IUserSettingService _UserSettingService,IEventAggregator ea)
         {
+            // Menu Event Aggregator
+            _ea = ea;
+            _ea.GetEvent<MenuSentEvent>().Subscribe(MenuExecuted);
+            RunMenuCommand = new DelegateCommand<object>(RunMenu);
+            // Service
             UserSettingService = _UserSettingService;
             string lastfile = UserSettingService.GetAppSetting("TigerOCR", "LastFile");
             ImagePath = lastfile;
             SetSource(0, ImagePath);
         }
+
+        #region MenuReceive , MenuSend
+        
+        private void MenuExecuted(object menu)
+        {
+            string menu_txt = menu as string;
+            string[] menu_path = menu_txt.Split(":");
+            if (menu_path != null && menu_path.Length == 2)
+            {
+                if (menu_path[0] == GoOCR.ModuleID)
+                {
+                    switch (menu_path[1])
+                    {
+                        //case "EXIT":
+                        //    ExitFunc();
+                        //    break;
+                        //case "SETTING":
+                        //    SettingFunc();
+                        //    break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        public DelegateCommand<object> RunMenuCommand { get; set; }
+
+        private void RunMenu(object param)
+        {
+            _ea.GetEvent<MenuSentEvent>().Publish(param);
+        }
+
+        #endregion
 
         #region binding property
         private string? _ImagePath;
@@ -109,6 +160,7 @@ namespace TigerWord.GoOCR.ViewModels
         #endregion binding property
         #region Services
         private IUserSettingService? _userSettingService;
+        private IEventAggregator _ea;
         public IUserSettingService? UserSettingService
         {
             get => _userSettingService;
@@ -246,6 +298,7 @@ namespace TigerWord.GoOCR.ViewModels
         const int STEP_THREADHOLD = 2;
         const int STEP_CONTOUR = 3;
         const int STEP_TRANSFORM = 4;
+        const int STEP_OCR = 7;
         int GoStep(int _step)
         {
             bool step_success = false;
@@ -342,6 +395,16 @@ namespace TigerWord.GoOCR.ViewModels
                         SetSource(6, final_src_resize);
                     }
                     CurrentTab = _step;
+                    _step = STEP_OCR;
+                    break;
+                case STEP_OCR:
+                    
+                    step_success = this.do_ocr(ImagePath);
+                    if(step_success)
+                    {
+                        SetSource(7, final_src);
+                    }
+                    CurrentTab = _step;
                     _step = STEP_SRC;
                     break;
                 default:
@@ -358,6 +421,21 @@ namespace TigerWord.GoOCR.ViewModels
             {
                 start_src = new Mat(filename);
                 return true;
+            }
+            return false;
+        }
+
+        void DrawRect(Rectangle rect)
+        {
+
+        }
+
+        private bool do_ocr(string filename)
+        {
+            if(File.Exists(filename))
+            {
+                Ocr.SetDrawDelegation(DrawRect);
+                Ocr.ocr_image(filename);
             }
             return false;
         }

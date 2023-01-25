@@ -91,7 +91,7 @@ namespace TigerWord.ViewModels
         }
         private void ChangeStartPageTabFunc(string parameter)
         {
-            MahDialogService.ShowMessage("-----------" + parameter + "------");
+            MahDialogService.ShowMessage("-----------" + parameter + "------","");
             switch (parameter)
             {
                 case "Ad":

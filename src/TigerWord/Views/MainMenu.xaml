@@ -11,6 +11,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Margin="-1,-2,-1,-1"
+    xmlns:prism ="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
     d:DataContext="{d:DesignInstance ViewModels:MainMenuViewModel}"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -356,8 +358,9 @@
                 ItemInvoked="HamburgerMenuControl_OnItemInvoked"
                 ItemTemplate="{StaticResource MenuItemTemplate}"
                 OptionsItemTemplate="{StaticResource MenuItemTemplate}"
-                SelectedIndex="0"
+                SelectedIndex="{Binding MenuIndex}"
                 DisplayMode="CompactOverlay"
+                ItemsSource="{Binding MenuItems}"
                 Style="{StaticResource MahApps.Styles.HamburgerMenu.Ripple}"
                 VerticalScrollBarOnLeftSide="False">
                 <!--  Header  -->
@@ -371,6 +374,7 @@
                     </DataTemplate>
                 </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
                 <!--  Items  -->
+                <!--
                 <mah:HamburgerMenu.ItemsSource>
                     <mah:HamburgerMenuItemCollection>
                         <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=OCR}" Label="Tiger OCR">
@@ -380,7 +384,7 @@
                         </mah:HamburgerMenuIconItem>
                     </mah:HamburgerMenuItemCollection>
                 </mah:HamburgerMenu.ItemsSource>
-
+                -->
                 <!--  Options  -->
                 <mah:HamburgerMenu.OptionsItemsSource>
                     <mah:HamburgerMenuItemCollection>

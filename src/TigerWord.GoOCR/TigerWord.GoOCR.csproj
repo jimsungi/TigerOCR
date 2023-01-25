@@ -7,6 +7,18 @@
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;</NoWarn>
+    <WarningLevel>5</WarningLevel>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;</NoWarn>
+    <WarningLevel>5</WarningLevel>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="Biz\" />
     <Folder Include="Services\" />
@@ -31,8 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tesseract.Drawing\Tesseract.Drawing.csproj" />
-    <ProjectReference Include="..\Tesseract\Tesseract.csproj" />
     <ProjectReference Include="..\Tigeracter\Tigeracter.csproj" />
     <ProjectReference Include="..\TigerWord.Core\TigerWord.Core.csproj" />
   </ItemGroup>
@@ -41,6 +51,12 @@
     <Compile Update="Views\TigerOCR.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="GoOCR.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

@@ -13,7 +13,7 @@ namespace TigerWord.Core.Services
     public interface IMahDialogService
     {
         void SetMahWindow(MetroWindow _win);
-        void ShowMessage(string message);
+        void ShowMessage(string message, string title="");
     }
     public class MahDialogService : IMahDialogService
     {
@@ -43,7 +43,7 @@ namespace TigerWord.Core.Services
             throw new NotImplementedException();
         }
 
-        public async void ShowMessage(string message)
+        public async void ShowMessage(string message, string title="")
         {
             if (win!=null && message != null)
             {
@@ -51,23 +51,15 @@ namespace TigerWord.Core.Services
                 // The package is only used by the demo and not a dependency of the library!
                 var mySettings = new MetroDialogSettings()
                 {
-                    AffirmativeButtonText = "Hi",
-                    NegativeButtonText = "Go away!",
-                    FirstAuxiliaryButtonText = "Cancel",
+                    DefaultText= message,
+                    AffirmativeButtonText = "OK",
                     ColorScheme = win.MetroDialogOptions.ColorScheme,
                     DialogButtonFontSize = 20D
                 };
 
-                MessageDialogResult result = await win.ShowMessageAsync("Hello!", "Welcome to the world of metro!",
-                                                                         MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, mySettings);
-
-                if (result != MessageDialogResult.FirstAuxiliary)
-                    await win.ShowMessageAsync("Result", "You said: " + (result == MessageDialogResult.Affirmative
-                                                    ? mySettings.AffirmativeButtonText
-                                                    : mySettings.NegativeButtonText +
-                                                      Environment.NewLine + Environment.NewLine + "This dialog will follow the Use Accent setting."));
-
-            }
+                MessageDialogResult result = await win.ShowMessageAsync(title, message,
+                                                                         MessageDialogStyle.Affirmative, mySettings);                
+            }           
         }
     }
 }

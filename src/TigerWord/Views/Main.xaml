@@ -10,7 +10,7 @@
     xmlns:prism="http://prismlibrary.com/"
     d:DesignHeight="450"
     d:DesignWidth="800"
-  prism:ViewModelLocator.AutoWireViewModel="True"
+    prism:ViewModelLocator.AutoWireViewModel="True"
     BorderBrush="Red"
     BorderThickness="0"
     mc:Ignorable="d">

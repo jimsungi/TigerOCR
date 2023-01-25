@@ -20,11 +20,13 @@
             Margin="0,0,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            TabStripPlacement="Right">
+            TabStripPlacement="Right"
+            SelectedIndex="{Binding Path=PageIndex,Mode=TwoWay}"
+            >
             <TabControl.ItemContainerStyle>
                 <!--  Hide Tab Control Header  -->
                 <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Visibility" Value="Visible" />
+                    <Setter Property="Visibility" Value="Collapsed" />
                 </Style>
             </TabControl.ItemContainerStyle>
             <TabItem Header="Manual Test">

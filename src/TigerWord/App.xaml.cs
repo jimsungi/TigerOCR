@@ -58,7 +58,7 @@ namespace TigerWord
             .Create()
             .UseDefaultSplash()
             //.UseWindow<TigerOCR.MainWindow>()
-            .Wait(4000)
+            .Wait(0) // .Wait(4000)
             .RunSplashOnly();
             var w = Container.Resolve<MainWindow>();
             return w;
