@@ -155,10 +155,10 @@ namespace TigerWord.Core.Services
                                     {
                                         for (int k = 0; k < main_order.Length; k++)
                                         {
-                                            if (main_order[k] == x.ModuleID)
+                                            if (main_order[k] == x.CommandID)
                                                 return false;
                                         }
-                                        return false;
+                                        return true;
                                     });
                                     ll = finded_app_menudata.Count();
                                 }

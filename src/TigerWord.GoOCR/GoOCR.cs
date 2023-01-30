@@ -91,11 +91,11 @@ namespace TigerWord.GoOCR
             {
                 ObservableCollection<CoreMenuData> SubMenuItems = new ObservableCollection<CoreMenuData>();
                 CoreMenuData StandardView = new CoreMenuData("OCR", ModuleID, "standardview", null, null, null);
-                CoreMenuData OCRView = new CoreMenuData("Step OCR", ModuleID, "stepview", null, null, null);
+                CoreMenuData OCRView = new CoreMenuData("Step by Step Testing", ModuleID, "stepview", null, null, null);
 
                 SubMenuItems.Add(StandardView);
                 SubMenuItems.Add(OCRView);
-                EditMenu.MenuItems = SubMenuItems;
+                ViewMenu.MenuItems = SubMenuItems;
             }
 
             ocrMenu.Add(FileMenu);

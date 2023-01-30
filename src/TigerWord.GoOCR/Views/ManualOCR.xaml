@@ -16,47 +16,67 @@
                         <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="50*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="50*" />
                     </Grid.RowDefinitions>
-                    <Grid
+                    <Grid Margin="10,0,10,0"
                         Grid.Row="0"
                         Grid.RowSpan="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="150" />
                             <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="20*" />
+                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
                         <Button
                             x:Name="btnSelect"
-                            Grid.Column="0"
+                            Grid.Column="0" Width="150"
                             Command="{Binding SelectImageDeleageCmd}"
                             Content="Select Image..." />
+                
                         <TextBox
                             x:Name="txtImage"
                             Text="{Binding ImagePath}"
                             Grid.Column="1"
-                            Width="200" />
-                        <Button
-                            x:Name="btnStart"
-                            Grid.Column="3"
-                            Width="130"
-                            Command="{Binding StepByStepDeleageCmd}"
-                            Content="단계별로 실행" />
-
+                            Grid.ColumnSpan="2"
+                            Margin="20,0,20,0" />
+                        
                     </Grid>
-
+            <Grid Grid.Row="1" Margin="10,5,0,5" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="200*"></ColumnDefinition>
+                    <ColumnDefinition Width="300*"></ColumnDefinition>
+                    <ColumnDefinition Width="300*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button
+                            x:Name="btnStart"
+                            Grid.Column="0"
+                            Width="150"
+                            Command="{Binding StepByStepDeleageCmd}"
+                            Content="{Binding StepGo}" />
+                <Label Margin="10,0,0,0"  Grid.Column="1" Content="{Binding StepText}"></Label>
+                <Label Margin="10,0,0,0"  Grid.Column="2" Content="{Binding StepDesc}"></Label>
+                <Label Margin="10,0,0,0"  Grid.Column="3" Content="{Binding StepResult}"></Label>
+            </Grid>
                     <TabControl
                         x:Name="stepTab"
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Grid.ColumnSpan="3"
                         Margin="10"
                         SelectedIndex="{Binding CurrentTab}"
                         VerticalAlignment="Stretch">
-                        <TabItem Header="src">
+                <TabControl.ItemContainerStyle>
+                    <!--  Hide Tab Control Header  -->
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Setter Property="Height" Value="15" />
+                    </Style>
+                </TabControl.ItemContainerStyle>
+                <TabItem Header="src">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="imgSrc" Source="{Binding StepBitmap0}" Margin="5" />
                             </Grid>
@@ -96,9 +116,16 @@
                         <Image x:Name="step6"  Source="{Binding StepBitmap7}" Margin="5" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="8">
-                            <Grid Background="#FFE5E5E5">
-                        <Image x:Name="step7"  Source="{Binding StepBitmap8}" Margin="5" />
+                <TabItem Header="8"   FontFamily="굴림">
+                            <Grid Background="#FFE5E5E5" >
+                        <Grid Width="100" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <Button FontSize="6" Width="30" MinHeight="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click">+</Button>
+                            <Button FontSize="6" Width="30" MinHeight="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Click="Button_Click_1">-</Button>
+                        </Grid>
+                        <ScrollViewer MouseWheel="ScrollViewer_MouseWheel" Margin="25">                            
+                            <Image x:Name="step7"  Source="{Binding StepBitmap8}" Stretch="Fill" Margin="5" />
+                        </ScrollViewer>
+                        
                             </Grid>
                         </TabItem>
                         <TabItem Header="9">
@@ -106,7 +133,12 @@
                         <Image x:Name="step8" Source="{Binding StepBitmap9}"  Margin="5" />
                             </Grid>
                         </TabItem>
-                    </TabControl>
+                <TabItem Header="10">
+                    <Grid Background="#FFE5E5E5">
+                        <Image x:Name="step9" Source="{Binding StepPDF}"  Margin="5" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
                 </Grid>
 
     </Grid>

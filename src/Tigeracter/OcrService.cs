@@ -18,6 +18,7 @@ using Point = OpenCvSharp.Point;
 using System.Security.Cryptography.X509Certificates;
 using Tesseract;
 using Rectangle = System.Drawing.Rectangle;
+using System.Runtime.InteropServices;
 
 namespace com.tigerword.tigeracter
 {
@@ -91,15 +92,58 @@ namespace com.tigerword.tigeracter
             }
         }
 
-        public DrawRect drawDelegation = null;
+        public static void ocr_image(Mat mat8)
+        {
+            Go();
+            {
+                Instance._ocr_image(mat8);
+            }
+        }
 
-        public delegate void DrawRect(Rectangle rect);
+        public static void ocr_image_txt(Mat mat8)
+        {
+            Go();
+            {
+                Instance._ocr_image_txt(mat8);
+            }
+        }
+        public object drawTarget = null;
+        public object txtTarget = null;
+        public DrawRect drawDelegation = null;
+        public DrawText txtDelegation = null;
+
+        public delegate void DrawRect(object target, Rectangle rect);
+        public delegate void DrawText(object target, RectangleF rect, string text);
 
         public static void SetDrawDelegation(DrawRect _drawer)
         {
             Go();
             {
                 Instance.drawDelegation = _drawer;
+            }
+        }
+
+        public static void SetTextDelegation(DrawText _drawer)
+        {
+            Go();
+            {
+                Instance.txtDelegation = _drawer;
+            }
+        }
+
+        public static void SetImageTarget(object target)
+        {
+            Go();
+            {
+                Instance.drawTarget = target;
+            }
+        }
+
+        public static void SetResultTarget(object target)
+        {
+            Go();
+            {
+                Instance.txtTarget = target;
             }
         }
 
@@ -149,7 +193,273 @@ namespace com.tigerword.tigeracter
                                                             re.Y = rect.Y1;
                                                             re.Height = rect.Height;
 
-                                                            drawDelegation(re);
+                                                            drawDelegation(drawTarget,re);
+                                                        }
+                                                    }
+                                                } while (iter.Next(PageIteratorLevel.Symbol, PageIteratorLevel.Symbol));
+                                                if (iter.IsAtBeginningOf(PageIteratorLevel.Block))
+                                                {
+                                                    Console.WriteLine("<BLOCK>");
+                                                }
+                                                Console.Write(iter.GetText(PageIteratorLevel.Word));
+                                                Console.Write(" ");
+
+                                                if (iter.IsAtFinalOf(PageIteratorLevel.TextLine, PageIteratorLevel.Word))
+                                                {
+                                                    Console.WriteLine();
+                                                }
+                                            } while (iter.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
+
+                                            if (iter.IsAtFinalOf(PageIteratorLevel.Para, PageIteratorLevel.TextLine))
+                                            {
+                                                Console.WriteLine();
+                                            }
+                                        } while (iter.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
+                                    } while (iter.Next(PageIteratorLevel.Block, PageIteratorLevel.Para));
+                                } while (iter.Next(PageIteratorLevel.Block));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+                Console.WriteLine("Unexpected Error: " + e.Message);
+                Console.WriteLine("Details: ");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+
+        Pix mat8ToPix(Mat mat8src, Pix refmix)
+        {
+            Mat mat8 = mat8src.Clone();
+            mat8src.ConvertTo(mat8, MatType.CV_8SC1);
+            Pix ret = Pix.Create(mat8.Width, mat8.Height, 8);
+            PixData pd = ret.GetData();
+            PixData refData = refmix.GetData();
+            int xypos = 0;
+            int yxpos = 0;
+            int maxy = mat8.Rows;
+            int maxx = mat8.Cols;
+            for (int y = 0; y < maxy; y++)
+            {
+                for (int x = 0; x < maxx; x++)
+                {
+                    xypos = y*maxx + x;
+                    yxpos = x*maxy + y;
+                    byte refa = Marshal.ReadByte(refData.Data, yxpos);//(y,x)
+                    byte refb = Marshal.ReadByte(refData.Data, yxpos);//(y,x)
+                    byte val = Marshal.ReadByte(mat8.Data, yxpos);//(y,x)
+                    Marshal.WriteByte(pd.Data, yxpos, val);//(x,y)
+                }
+            }
+            return ret;
+        }
+        Mat pixToMat(Pix pix)
+        {
+            int width = pix.Width;
+            int height = pix.Height;
+            int depth = pix.Depth;
+            Mat matr = new Mat(new OpenCvSharp.Size(), depth == 1 ? MatType.CV_8UC1 : MatType.CV_8UC3);
+
+            PixData pd = pix.GetData();
+            for (int y=0; y < height; ++y)
+            {
+                for(int x=0; x <width; ++x)
+                {
+                    
+                    if(depth == 1)
+                    {
+                        int pos = x + y * height;
+                        byte v = Marshal.ReadByte(pd.Data, pos);
+                        Marshal.WriteByte(matr.Data, (byte)(255 * v));
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            return matr;
+        }
+        //cv::Mat pixToMat(Pix* pix)
+        //{
+        //    int width = pixGetWidth(pix);
+        //    int height = pixGetHeight(pix);
+        //    int depth = pixGetDepth(pix);
+
+        //    cv::Mat mat(cv::Size(width, height), depth == 1 ? CV_8UC1 : CV_8UC3);
+
+        //    for (uint32_t y = 0; y < height; ++y)
+        //    {
+        //        for (uint32_t x = 0; x < width; ++x)
+        //        {
+        //            if (depth == 1)
+        //            {
+        //                l_uint32 val;
+        //                pixGetPixel(pix, x, y, &val);
+        //                mat.at<uchar>(cv::Point(x, y)) = static_cast<uchar>(255 * val);
+        //            }
+        //            else
+        //            {
+        //                l_int32 r, g, b;
+        //                pixGetRGBPixel(pix, x, y, &r, &g, &b);
+
+        //                cv::Vec3b color(b, g, r);
+        //                mat.at<cv::Vec3b>(cv::Point(x, y)) = color;
+        //            }
+        //        }
+        //    }
+
+        //    return mat;
+        //}
+
+
+        public void _ocr_image(Mat src_mat)
+        {
+            //src_mat.ConvertTo(src_mat, MatType.CV_8U);
+            Bitmap bmp = BitmapConverter.ToBitmap(src_mat);
+            PixConverter.ToPix(bmp);
+
+            //Pix refpix = Pix.LoadFromFile(filename);
+                //var testImagePath = filename;
+                Pix pix = PixConverter.ToPix(bmp);
+            //Pix pix = mat8ToPix(src_mat, refpix);
+            try
+            {
+                using (var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default))
+                {
+                    using (var img =pix)
+                    {
+                        using (var page = engine.Process(img))
+                        {
+                            var text = page.GetText();
+                            Console.WriteLine("Mean confidence: {0}", page.GetMeanConfidence());
+
+                            Console.WriteLine("Text (GetText): \r\n{0}", text);
+                            Console.WriteLine("Text (iterator):");
+                            using (var iter = page.GetIterator())
+                            {
+                                iter.Begin();
+
+                                do
+                                {
+                                    do
+                                    {
+                                        do
+                                        {
+                                            do
+                                            {
+                                                do
+                                                {
+
+                                                    Debug.WriteLine(iter.GetText(PageIteratorLevel.Symbol));
+                                                    Tesseract.Rect rect
+                                                        = new Tesseract.Rect();
+
+                                                    if (iter.TryGetBoundingBox(PageIteratorLevel.Symbol, out rect) == true)
+                                                    {
+                                                        if (drawDelegation != null)
+                                                        {
+                                                            Rectangle re = new Rectangle();
+                                                            re.X = rect.X1;
+                                                            re.Width = rect.Width;
+                                                            re.Y = rect.Y1;
+                                                            re.Height = rect.Height;
+
+                                                            drawDelegation(drawTarget, re);
+                                                        }
+                                                    }
+                                                } while (iter.Next(PageIteratorLevel.Symbol, PageIteratorLevel.Symbol));
+                                                if (iter.IsAtBeginningOf(PageIteratorLevel.Block))
+                                                {
+                                                    Console.WriteLine("<BLOCK>");
+                                                }
+                                                Console.Write(iter.GetText(PageIteratorLevel.Word));
+                                                Console.Write(" ");
+
+                                                if (iter.IsAtFinalOf(PageIteratorLevel.TextLine, PageIteratorLevel.Word))
+                                                {
+                                                    Console.WriteLine();
+                                                }
+                                            } while (iter.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
+
+                                            if (iter.IsAtFinalOf(PageIteratorLevel.Para, PageIteratorLevel.TextLine))
+                                            {
+                                                Console.WriteLine();
+                                            }
+                                        } while (iter.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
+                                    } while (iter.Next(PageIteratorLevel.Block, PageIteratorLevel.Para));
+                                } while (iter.Next(PageIteratorLevel.Block));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+                Console.WriteLine("Unexpected Error: " + e.Message);
+                Console.WriteLine("Details: ");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void _ocr_image_txt(Mat src_mat)
+        {
+            //src_mat.ConvertTo(src_mat, MatType.CV_8U);
+            Bitmap bmp = BitmapConverter.ToBitmap(src_mat);
+            PixConverter.ToPix(bmp);
+
+            //Pix refpix = Pix.LoadFromFile(filename);
+            //var testImagePath = filename;
+            Pix pix = PixConverter.ToPix(bmp);
+            //Pix pix = mat8ToPix(src_mat, refpix);
+            try
+            {
+                using (var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default))
+                {
+                    using (var img = pix)
+                    {
+                        using (var page = engine.Process(img))
+                        {
+                            var text = page.GetText();
+                            Console.WriteLine("Mean confidence: {0}", page.GetMeanConfidence());
+
+                            Console.WriteLine("Text (GetText): \r\n{0}", text);
+                            Console.WriteLine("Text (iterator):");
+                            using (var iter = page.GetIterator())
+                            {
+                                iter.Begin();
+
+                                do
+                                {
+                                    do
+                                    {
+                                        do
+                                        {
+                                            do
+                                            {
+                                                do
+                                                {
+                                                    string symbol = iter.GetText(PageIteratorLevel.Symbol);
+                                                    Debug.WriteLine(symbol);
+                                                    Tesseract.Rect rect
+                                                        = new Tesseract.Rect();
+
+                                                    if (iter.TryGetBoundingBox(PageIteratorLevel.Symbol, out rect) == true)
+                                                    {
+                                                        if (txtDelegation != null)
+                                                        {
+                                                            RectangleF re = new RectangleF();
+                                                            re.X = rect.X1;
+                                                            re.Width = rect.Width;
+                                                            re.Y = rect.Y1;
+                                                            re.Height = rect.Height;
+
+                                                            txtDelegation(txtTarget, re, symbol);
                                                         }
                                                     }
                                                 } while (iter.Next(PageIteratorLevel.Symbol, PageIteratorLevel.Symbol));
