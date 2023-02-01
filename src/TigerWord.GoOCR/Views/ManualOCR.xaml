@@ -56,6 +56,7 @@
                             x:Name="btnStart"
                             Grid.Column="0"
                             Width="150"
+                    IsEnabled="{Binding CanStep}"
                             Command="{Binding StepByStepDeleageCmd}"
                             Content="{Binding StepGo}" />
                 <Label Margin="10,0,0,0"  Grid.Column="1" Content="{Binding StepText}"></Label>
@@ -76,47 +77,47 @@
                         <Setter Property="Height" Value="15" />
                     </Style>
                 </TabControl.ItemContainerStyle>
-                <TabItem Header="src">
+                <TabItem Header="{Binding Step0}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="imgSrc" Source="{Binding StepBitmap0}" Margin="5" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="1">
+                <TabItem Header="{Binding Step1}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="step0" Source="{Binding StepBitmap1}" Margin="5" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="2">
+                <TabItem Header="{Binding Step2}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="step1" Source="{Binding StepBitmap2}" Margin="5" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="3">
+                <TabItem Header="{Binding Step3}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="step2" Source="{Binding StepBitmap3}" Margin="5" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="4">
+                <TabItem Header="{Binding Step4}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="step3" Source="{Binding StepBitmap4}"  Margin="5" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="5">
+                <TabItem Header="{Binding Step5}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="step4"  Source="{Binding StepBitmap5}" Margin="5" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="6">
+                <TabItem Header="{Binding Step6}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="step5"  Source="{Binding StepBitmap6}" Margin="5" />
                             </Grid>
                         </TabItem>
-                        <TabItem Header="7">
+                <TabItem Header="{Binding Step7}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="step6"  Source="{Binding StepBitmap7}" Margin="5" />
                             </Grid>
                         </TabItem>
-                <TabItem Header="8"   FontFamily="굴림">
+                <TabItem Header="{Binding Step8}"   FontFamily="굴림">
                             <Grid Background="#FFE5E5E5" >
                         <Grid Width="100" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right">
                             <Button FontSize="6" Width="30" MinHeight="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click">+</Button>
@@ -128,12 +129,12 @@
                         
                             </Grid>
                         </TabItem>
-                        <TabItem Header="9">
+                <TabItem Header="{Binding Step9}">
                             <Grid Background="#FFE5E5E5">
                         <Image x:Name="step8" Source="{Binding StepBitmap9}"  Margin="5" />
                             </Grid>
                         </TabItem>
-                <TabItem Header="10">
+                <TabItem Header="{Binding Step}">
                     <Grid Background="#FFE5E5E5">
                         <Image x:Name="step9" Source="{Binding StepPDF}"  Margin="5" />
                     </Grid>
