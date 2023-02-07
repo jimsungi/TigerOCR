@@ -41,3 +41,5 @@
 /src/TigerWord.GoPDF/bin
 /src/TigerOCRTest/.vs
 /src/TigerOCR2017src.zip
+/src/PdfSharp/bin
+/src/PdfSharp/obj
