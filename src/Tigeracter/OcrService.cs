@@ -84,27 +84,27 @@ namespace com.tigerword.tigeracter
             }
         }
 
-        public static void ocr_image(string filename)
+        public static void ocr_image(string filename,string language)
         {
             Go();
             {
-                Instance._ocr_image(filename);
+                Instance._ocr_image(filename,language);
             }
         }
 
-        public static void ocr_image(Mat mat8)
+        public static void ocr_image(Mat mat8, string language)
         {
             Go();
             {
-                Instance._ocr_image(mat8);
+                Instance._ocr_image(mat8,language);
             }
         }
 
-        public static void ocr_image_txt(Mat mat8)
+        public static void ocr_image_txt(Mat mat8, string language)
         {
             Go();
             {
-                Instance._ocr_image_txt(mat8);
+                Instance._ocr_image_txt(mat8,language);
             }
         }
         public object drawTarget = null;
@@ -147,13 +147,13 @@ namespace com.tigerword.tigeracter
             }
         }
 
-        public void _ocr_image(string filename)
+        public void _ocr_image(string filename, string language)
         {
             var testImagePath = filename;
 
             try
             {
-                using (var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default))
+                using (var engine = new TesseractEngine(@"./tessdata", language, EngineMode.Default))
                 {
                     using (var img = Pix.LoadFromFile(testImagePath))
                     {
@@ -317,7 +317,7 @@ namespace com.tigerword.tigeracter
         //}
 
 
-        public void _ocr_image(Mat src_mat)
+        public void _ocr_image(Mat src_mat,string language)
         {
             //src_mat.ConvertTo(src_mat, MatType.CV_8U);
             Bitmap bmp = BitmapConverter.ToBitmap(src_mat);
@@ -329,7 +329,7 @@ namespace com.tigerword.tigeracter
             //Pix pix = mat8ToPix(src_mat, refpix);
             try
             {
-                using (var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default))
+                using (var engine = new TesseractEngine(@"./tessdata", language, EngineMode.Default))
                 {
                     using (var img =pix)
                     {
@@ -407,7 +407,7 @@ namespace com.tigerword.tigeracter
             }
         }
 
-        public void _ocr_image_txt(Mat src_mat)
+        public void _ocr_image_txt(Mat src_mat, string language)
         {
             //src_mat.ConvertTo(src_mat, MatType.CV_8U);
             Bitmap bmp = BitmapConverter.ToBitmap(src_mat);
@@ -419,7 +419,7 @@ namespace com.tigerword.tigeracter
             //Pix pix = mat8ToPix(src_mat, refpix);
             try
             {
-                using (var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default))
+                using (var engine = new TesseractEngine(@"./tessdata", language, EngineMode.Default))
                 {
                     using (var img = pix)
                     {
@@ -661,14 +661,14 @@ namespace com.tigerword.tigeracter
             return calcMaxWidthHeight(points[0].Value, points[3].Value, points[1].Value, points[2].Value);
         }
 
-        public static OpenCvSharp.Size calcMaxWidthHeight(Point tl, Point tr, Point br, Point bl)
+        public static OpenCvSharp.Size calcMaxWidthHeight(Point tl, Point tr, Point bl, Point br)
         {
             Go();
             {
-                return Instance._calcMaxWidthHeight(tl,tr,br,bl);
+                return Instance._calcMaxWidthHeight(tl,tr,bl,br);
             }
         }
-        private OpenCvSharp.Size _calcMaxWidthHeight(Point tl, Point tr, Point br, Point bl)
+        private OpenCvSharp.Size _calcMaxWidthHeight(Point tl, Point tr, Point bl, Point br)
         {
             // Calculate width
             var widthA = Math.Sqrt((tl.X - tr.X) * (tl.X - tr.X) + (tl.Y - tr.Y) * (tl.Y - tr.Y));

@@ -172,7 +172,7 @@ namespace TigerWord.GoOCR.Biz
 
             OpenCvSharp.Size maxSize = Ocr.calcMaxWidthHeight(do_rect);
             var dw = maxSize.Width;
-            var dh = dw * maxSize.Height / maxSize.Width;
+            var dh = maxSize.Height;// dw * maxSize.Height / maxSize.Width;
 
             Point2f[] srcQuard = new Point2f[4];
             srcQuard[0].X = (int)(do_rect[0].Value.X * resize_ratio);//좌상
@@ -249,16 +249,16 @@ namespace TigerWord.GoOCR.Biz
                 return bitmapImage;
             }
         }
-        public static Mat do_ocr_mat(Mat crop_src)
+        public static Mat do_ocr_mat(Mat crop_src, string language)
         {
             Mat to_ocr_image = crop_src.Clone();
 
             Ocr.SetImageTarget(to_ocr_image);
             Ocr.SetDrawDelegation(DrawRect);
-            Ocr.ocr_image(to_ocr_image);
+            Ocr.ocr_image(to_ocr_image,language);
             return to_ocr_image;
         }
-        public static Mat do_ocr_mat_txt(Mat crop_src, string out_pdf_filename)
+        public static Mat do_ocr_mat_txt(Mat crop_src, string out_pdf_filename,string language)
         {
             Mat to_ocr_txt_image = crop_src.Clone();
 
@@ -337,7 +337,7 @@ namespace TigerWord.GoOCR.Biz
             //writer.getDirect
             Ocr.SetResultTarget(param);
             Ocr.SetTextDelegation(DrawText);
-            Ocr.ocr_image_txt(to_ocr_txt_image);
+            Ocr.ocr_image_txt(to_ocr_txt_image,language);
 
             // Close document
             document.Close();

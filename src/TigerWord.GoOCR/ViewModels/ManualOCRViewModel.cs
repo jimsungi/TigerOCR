@@ -19,11 +19,67 @@ using TigerWord.Core.ViewModels;
 using System.Linq;
 using PDFiumSharp;
 using TigerWord.GoOCR.Biz;
+using System.Windows.Data;
 
 
 #pragma warning disable CS8604 // 가능한 null 참조 인수입니다.
 namespace TigerWord.GoOCR.ViewModels
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class OcrLanguage : BindableBase
+    {
+        private string _language;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Language
+        {
+            get
+            {
+                return _language;
+            }
+            set
+            {
+                SetProperty(ref _language, value);
+            }
+        }
+
+        private string _code;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Code
+        {
+            get
+            {
+                return _code;
+            }
+            set
+            {
+                SetProperty(ref _code, value);
+            }
+        }
+
+        private string _description;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                SetProperty(ref _description, value);
+            }
+        }
+    }
+
     class StepGo : BindableBase
     {
         public StepGo(int index)
@@ -109,12 +165,23 @@ namespace TigerWord.GoOCR.ViewModels
             }
         }
 
+
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public class ManualOCRViewModel : BindableBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_UserSettingService"></param>
+        /// <param name="ea"></param>
         public ManualOCRViewModel(IUserSettingService _UserSettingService, IEventAggregator ea)
         {
             CreateStepGo();
+            Languages = CreateLanguages();
+            SelectedLanguage = "kor+eng";
             // Menu Event Aggregator
             _ea = ea;
             _ea.GetEvent<MenuSentEvent>().Subscribe(MenuExecuted);
@@ -164,6 +231,34 @@ namespace TigerWord.GoOCR.ViewModels
         private void RunMenu(object param)
         {
             _ea.GetEvent<MenuSentEvent>().Publish(param);
+        }
+
+        #endregion
+        #region Supported Language
+
+        List<OcrLanguage> CreateLanguages()
+        {
+            List<OcrLanguage> ret = new List<OcrLanguage>();
+            ret.Add(new OcrLanguage()
+            {
+                Code = "kor+eng",
+                Description = "한영(기본)",
+                Language = "한글"
+            });
+            ret.Add(new OcrLanguage()
+            {
+                Code = "eng",
+                Description = "영어",
+                Language = "English"
+            });
+            ret.Add(new OcrLanguage()
+            {
+                Code = "kor+eng",
+                Description = "한글",
+                Language = "한글"
+            });
+
+            return ret;
         }
 
         #endregion
@@ -235,8 +330,42 @@ namespace TigerWord.GoOCR.ViewModels
         #endregion
 
         #region binding property
+        private List<OcrLanguage> _languages;
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<OcrLanguage> Languages
+        {
+            get
+            {
+                return _languages;
+            }
+            set
+            {
+                SetProperty(ref _languages, value);
+            }
+        }
 
-        private bool _canStep=true;
+        private string _selectedLanguage;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SelectedLanguage
+        {
+            get
+            {
+                return _selectedLanguage;
+            }
+            set
+            {
+                SetProperty(ref _selectedLanguage, value);
+            }
+        }
+
+        private bool _canStep = true;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool CanStep
         {
             get
@@ -251,6 +380,9 @@ namespace TigerWord.GoOCR.ViewModels
 
 
         private string _stepResult;
+        /// <summary>
+        /// 
+        /// </summary>
         public string StepResult
         {
             get
@@ -265,6 +397,9 @@ namespace TigerWord.GoOCR.ViewModels
 
 
         private string _stepDesc;
+        /// <summary>
+        /// 
+        /// </summary>
         public string StepDesc
         {
             get
@@ -278,6 +413,9 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
         private string _stepText;
+        /// <summary>
+        /// 
+        /// </summary>
         public string StepText
         {
             get
@@ -291,6 +429,9 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
         private string _stepGo;
+        /// <summary>
+        /// 
+        /// </summary>
         public string StepGo
         {
             get
@@ -306,6 +447,9 @@ namespace TigerWord.GoOCR.ViewModels
 
 
         private string? _ImagePath;
+        /// <summary>
+        /// 
+        /// </summary>
         public string? ImagePath
         {
             get => _ImagePath;
@@ -313,6 +457,9 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
         private int? _CurrentTab = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         public int? CurrentTab
         {
             get => _CurrentTab;
@@ -332,8 +479,11 @@ namespace TigerWord.GoOCR.ViewModels
         private BitmapImage? _StepPDF;
 
 
- 
-        private string _step0="source";
+
+        private string _step0 = "source";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step0
         {
             get
@@ -347,7 +497,10 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
 
-        private string _step1="-";
+        private string _step1 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step1
         {
             get
@@ -361,7 +514,10 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
 
-        private string _step2="-";
+        private string _step2 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step2
         {
             get
@@ -375,7 +531,10 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
 
-        private string _step3="-";
+        private string _step3 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step3
         {
             get
@@ -389,6 +548,9 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
         private string _step4 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step4
         {
             get
@@ -403,6 +565,9 @@ namespace TigerWord.GoOCR.ViewModels
 
 
         private string _step5 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step5
         {
             get
@@ -417,6 +582,9 @@ namespace TigerWord.GoOCR.ViewModels
 
 
         private string _step6 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step6
         {
             get
@@ -430,6 +598,9 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
         private string _step7 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step7
         {
             get
@@ -444,6 +615,9 @@ namespace TigerWord.GoOCR.ViewModels
 
 
         private string _step8 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step8
         {
             get
@@ -457,6 +631,9 @@ namespace TigerWord.GoOCR.ViewModels
         }
 
         private string _step9 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step9
         {
             get
@@ -471,6 +648,9 @@ namespace TigerWord.GoOCR.ViewModels
 
 
         private string _step10 = "-";
+        /// <summary>
+        /// 
+        /// </summary>
         public string Step10
         {
             get
@@ -482,57 +662,89 @@ namespace TigerWord.GoOCR.ViewModels
                 SetProperty(ref _step10, value);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepPDF
         {
             get => _StepPDF;
             set => SetProperty(ref _StepPDF, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap0
         {
             get => _StepBitmap0;
             set => SetProperty(ref _StepBitmap0, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap1
         {
             get => _StepBitmap1;
             set => SetProperty(ref _StepBitmap1, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap2
         {
             get => _StepBitmap2;
             set => SetProperty(ref _StepBitmap2, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap3
         {
             get => _StepBitmap3;
             set => SetProperty(ref _StepBitmap3, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap4
         {
             get => _StepBitmap4;
             set => SetProperty(ref _StepBitmap4, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap5
         {
             get => _StepBitmap5;
             set => SetProperty(ref _StepBitmap5, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap6
         {
             get => _StepBitmap6;
             set => SetProperty(ref _StepBitmap6, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap7
         {
             get => _StepBitmap7;
             set => SetProperty(ref _StepBitmap7, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap8
         {
             get => _StepBitmap8;
             set => SetProperty(ref _StepBitmap8, value);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BitmapImage? StepBitmap9
         {
             get => _StepBitmap9;
@@ -637,8 +849,14 @@ namespace TigerWord.GoOCR.ViewModels
         #region Delegate Command
         private DelegateCommand<string>? _SelectImageCmd;
         private DelegateCommand<string>? _StepByStepDeleageCmd;
+        /// <summary>
+        /// 
+        /// </summary>
         public DelegateCommand<string> SelectImageDeleageCmd =>
             _SelectImageCmd ?? (_SelectImageCmd = new DelegateCommand<string>(SelectImageFunc));
+        /// <summary>
+        /// 
+        /// </summary>
         public DelegateCommand<string> StepByStepDeleageCmd =>
     _StepByStepDeleageCmd ?? (_StepByStepDeleageCmd = new DelegateCommand<string>(StepByStepFunc));
         //string regstring = @"tigerocr\setting";
@@ -859,7 +1077,7 @@ namespace TigerWord.GoOCR.ViewModels
                         break;
                     case "ocr":
                         {
-                            Mat res = OcrUtil.do_ocr_mat(stepGo.In as Mat);
+                            Mat res = OcrUtil.do_ocr_mat(stepGo.In as Mat, SelectedLanguage);
                             if (res != null)
                             {
                                 StepGo = "OCR text";
@@ -883,7 +1101,7 @@ namespace TigerWord.GoOCR.ViewModels
                     case "txt":
                         {
                             string pdf_file_name = ImagePath + ".t.pdf";
-                            Mat res = OcrUtil.do_ocr_mat_txt(stepGo.In as Mat, pdf_file_name);
+                            Mat res = OcrUtil.do_ocr_mat_txt(stepGo.In as Mat, pdf_file_name, SelectedLanguage);
                             if (res != null)
                             {
                                 StepGo = "Done";
@@ -901,7 +1119,7 @@ namespace TigerWord.GoOCR.ViewModels
                                     BitmapImage m = n as BitmapImage;
                                     StepPDF = m;
                                 }
-                                
+
                             }
                             else
                             {
@@ -938,9 +1156,11 @@ namespace TigerWord.GoOCR.ViewModels
                         break;
                 }
             }
-        }     
+        }
 
 
         #endregion
     }
+
+
 }
