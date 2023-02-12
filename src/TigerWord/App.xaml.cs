@@ -81,10 +81,22 @@ namespace TigerWord
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             var ocrmodule = typeof(TigerWord.GoOCR.Views.TigerOCR);
+            string ocrmodulename = "TigerOCR";
+            string ocrmoduletype = "TigerWord.GoOCR.Views.TigerOCR, TigerWord.GoOCR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
             moduleCatalog.AddModule(new ModuleInfo()
             {
-                ModuleName = ocrmodule.Name,
-                ModuleType = ocrmodule.AssemblyQualifiedName,
+                ModuleName = ocrmodulename,//""ocrmodule.Name,
+                ModuleType = ocrmoduletype,// ocrmodule.AssemblyQualifiedName,
+                InitializationMode = InitializationMode.OnDemand
+            });
+
+            var pdfmodule = typeof(TigerWord.GoPDF.Views.TigerPDF);
+            string pdfmodulename = "TigerPDF";
+            string pdfmoduletype = "TigerWord.GoPDF.Views.TigerPDF, TigerWord.GoPDF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+            moduleCatalog.AddModule(new ModuleInfo()
+            {
+                ModuleName = pdfmodulename,//""ocrmodule.Name,
+                ModuleType = pdfmoduletype,// ocrmodule.AssemblyQualifiedName,
                 InitializationMode = InitializationMode.OnDemand
             });
         }

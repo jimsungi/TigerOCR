@@ -11,9 +11,9 @@ using Prism.Regions;
 using TigerWord.Core;
 using TigerWord.Core.Biz;
 
-namespace TigerWord.GoOCR
+namespace TigerWord.GoPDF
 {
-    public class GoOCR: IModule
+    public class GoPDF: IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
@@ -37,11 +37,11 @@ namespace TigerWord.GoOCR
     {
         public Type GetModuleType()
         {
-            return typeof(TigerWord.GoOCR.Views.TigerOCR);
+            return typeof(TigerWord.GoPDF.Views.TigerPDF);
         }
 
-        public const string MenuText = "Tiger OCR";
-        const string ToolTipText = "OCR Moudel";
+        public const string MenuText = "Tiger PDF";
+        const string ToolTipText = "PDF Module";
 
         public Tuple<Type, string, string, MahApps.Metro.IconPacks.PackIconBase, ObservableCollection<CoreMenuData>,object,object> GetModuleInfo()
         {
@@ -50,7 +50,7 @@ namespace TigerWord.GoOCR
                 Tuple<Type, string, string, MahApps.Metro.IconPacks.PackIconBase, ObservableCollection<CoreMenuData>
             , object, object>
                 (
-            typeof(TigerWord.GoOCR.Views.TigerOCR),
+            typeof(TigerWord.GoPDF.Views.TigerPDF),
             MenuText,
             ToolTipText,
              new PackIconMaterial() { Kind = PackIconMaterialKind.Ocr },
@@ -61,7 +61,7 @@ namespace TigerWord.GoOCR
             return retTup;
         }
 
-        public static ObservableCollection<CoreMenuData> GetOcrMenuInfo()
+        public static ObservableCollection<CoreMenuData> GetPdfMenuInfo()
         {
             ObservableCollection<CoreMenuData> ocrMenu = new ObservableCollection<CoreMenuData>();
             string ModuleID = MenuText;
@@ -184,7 +184,7 @@ namespace TigerWord.GoOCR
 
         public ObservableCollection<CoreMenuData> GetMenuInfo()
         {
-            return Loader.GetOcrMenuInfo();            
+            return Loader.GetPdfMenuInfo();            
         }
     }
 }

@@ -7,4 +7,22 @@
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Biz\" />
+    <Folder Include="Services\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+    <PackageReference Include="PDFium.Windows" Version="1.0.0" />
+    <PackageReference Include="Prism.Unity" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TigerWord.Core\TigerWord.Core.csproj" />
+  </ItemGroup>
+
 </Project>

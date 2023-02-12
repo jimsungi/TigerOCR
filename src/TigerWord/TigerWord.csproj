@@ -45,6 +45,7 @@
     <ProjectReference Include="..\TigerSplash\TigerSplash.csproj" />
     <ProjectReference Include="..\TigerWord.Core\TigerWord.Core.csproj" />
     <ProjectReference Include="..\TigerWord.GoOCR\TigerWord.GoOCR.csproj" />
+    <ProjectReference Include="..\TigerWord.GoPDF\TigerWord.GoPDF.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,5 +54,6 @@
     <Resource Include="flip\2.png" />
     <Resource Include="flip\3.png" />
   </ItemGroup>
+
 
 </Project>
